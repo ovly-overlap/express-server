@@ -1,0 +1,33 @@
+{
+  "name": "ovly-express",
+  "version": "1.0.0",
+  "description": "express mjs ts",
+  "homepage": "https://github.com/ovly-overlap/express-server#readme",
+  "bugs": {
+    "url": "https://github.com/ovly-overlap/express-server/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ovly-overlap/express-server.git"
+  },
+  "license": "ISC",
+  "author": "ripetangerine(kwak jk)",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/app.ts",
+    "bulid": "tsc",
+    "start": "node dist/app.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.3.5",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
