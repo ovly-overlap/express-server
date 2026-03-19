@@ -1,22 +1,21 @@
-import { verifyToken } from '../utils/jwt';
-import { NextFunction } from "express";
+import { verifyToken } from '../util/jwt.js';
+import express from "express";
 
 
-export const authMiddleware = (req:Request, res:Response, next:NextFunction) => {
+export const authMiddleware = (req:Request, res:Response, next:express.NextFunction) => {
   const token = req.headers.authorization;
 
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-
   // 디코딩
-  // req.user = decodeToken(token)
 
-  
   try {
     const decoded = verifyToken(token)
-    req.user = decoded   // ⭐ 중요 (다음 단계에서 사용)
+    // userService.getMyData(req.user.id) 이런식으로 앞으로 사용
+    req.user = decoded  
+    // req.user = decodeToken(token)
     next()
   } catch (err) {
     return res.status(401).json({ message: '토큰 오류' })
@@ -25,37 +24,6 @@ export const authMiddleware = (req:Request, res:Response, next:NextFunction) => 
 }
 
 
-// export async function authenticatedUser(
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) {
-//   const session = res.locals.session ?? (await getSession(req, authConfig))
-//   if (!session?.user) {
-//     res.redirect("/login")
-//   } else {
-//     next()
-//   }
-// }
-
-
-
-// userSchema.statics.findByToken = function(token, cb) {
-//     var user = this;
-    
-//     // verify a token symmetric //토큰을 디코드 한다.
-//     //decoded -> userId
-//     jwt.verify(token, 'secretToken', function(err, decoded) {
-//         //console.log(decoded.foo) // bar
-        
-//         //유저 아이디를 이용해서 유저를 찾은 다음에
-//         //클라이언트에서 가져온 token과 DB에 저장된 토큰이 일치하는지 확인한다. 
-//         user.findOne({"_id" : decoded, "token" : token}, function(err, user) {
-//             if (err) return cb(err);
-//             cb(null, user);
-//         });
-//     });
-// }
 
 // const { User } = require('../models/User');
 

@@ -1,13 +1,13 @@
 // services/auth.service.ts
-import * as userRepository from '../repository/user.repository.ts';
+import * as userRepository from '../repository/user.repository.js';
 import bcrypt from 'bcrypt';
-import { generateToken } from '../utils/jwt';
+import { generateToken } from '../util/jwt.js';
 
 export const register = async (data) => {
   const existing = await userRepository.findByEmail(data.email)
 
   if (existing) {
-    throw new Error('이미 존재하는 유저')
+    throw new Error('이미 존재하는 유저');
   }
 
   const hashedPassword = await bcrypt.hash(data.password, 10)

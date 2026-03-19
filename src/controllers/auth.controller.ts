@@ -1,5 +1,5 @@
 // controllers/auth.controller.ts
-import * as authService from '../services/auth.service';
+import * as authService from '../services/auth.service.js';
 
 export const register = async (req, res) => {
   const user = await authService.register(req.body)
