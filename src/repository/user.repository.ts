@@ -1,5 +1,6 @@
 // repositories/user.repository.ts
-import { User } from '../models/user.model'
+// import { User } from '../models/user.model.js';
+import * as User from "../models/user.js";
 // 시퀄라이즈 모델에 접근
 
 export const findAllUsers = async () => {
