@@ -1,5 +1,5 @@
 import {Optional} from "sequelize";
-import {Table, Model} from 'sequelize-typescript';
+import {Table, Model, Column, DataType} from 'sequelize-typescript';
 
 interface NewsAttributes{
     id: number;
@@ -15,6 +15,10 @@ interface NewsAttributes{
 interface NewsCreationAttributes extends Optional<NewsAttributes, 'id'>{}
 
 @Table
-class News extends Model<NewsAttributes, NewsCreationAttributes>{
-    
+class News extends Model<NewsAttributes, NewsCreationAttributes> implements  NewsAttributes{
+    @Column(DataType.NUMBER)
+    id: number;
+
+    @Column()
+    article_title: string;
 }
