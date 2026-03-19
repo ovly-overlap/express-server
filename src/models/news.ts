@@ -1,5 +1,5 @@
-import {Optional} from "sequelize";
-import {Table, Model, Column, DataType} from 'sequelize-typescript';
+import 'reflect-metadata';
+import {Table, Model, Column, DataType, Default, PrimaryKey, AutoIncrement, DeletedAt} from 'sequelize-typescript';
 
 interface NewsAttributes{
     id: number;
@@ -12,13 +12,37 @@ interface NewsAttributes{
     deleted_at: Date;
 }
 
-interface NewsCreationAttributes extends Optional<NewsAttributes, 'id'>{}
+// interface NewsCreationAttributes extends Optional<NewsAttributes, 'id'>{}
 
-@Table
-class News extends Model<NewsAttributes, NewsCreationAttributes> implements  NewsAttributes{
-    @Column(DataType.NUMBER)
-    id: number;
+@Table({
+    tableName: 'news',
+    timestamps: true,
+})
+class News extends Model<NewsAttributes>{ //  implements  NewsAttributes
+    @Column({type:DataType.INTEGER})
+    @PrimaryKey
+    @AutoIncrement
+    id!: number;
+    
+    @Column({type:DataType.STRING})
+    article_title!: string;
+    
+    @Column({type:DataType.STRING})
+    article_source!: string;
 
-    @Column()
-    article_title: string;
+    @Column({type:DataType.STRING})
+    article_image_url!: string;
+
+    @Column({type:DataType.TEXT})
+    content!: string;
+
+    @Column({type:DataType.SMALLINT})
+    @Default(0)
+    click_count!: number;
+
+    @Column({type:DataType.DATE})
+    scrolled_at!: Date;
+
+    @DeletedAt
+    deleted_at!: Date;
 }
