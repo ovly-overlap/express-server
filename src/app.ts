@@ -8,12 +8,16 @@ const app = express();
 
 // app.js -> models/index.js - db server connection - models/article.js(모델파일) 동기화 -> article 물리 테이블 생성
 
-// let
+app.use(express.json());
+app.use(cors());
+// app.use(authMiddleware); // 전체 인증
 
-app.get("/", (_: Request, res: Response) => {
-  res.send("Hello World")
-})
+//
+// app.get("/", (_: Request, res: Response) => {
+//   res.send("Hello World")
+// })
 
+// TODO : port 변경
 app.listen(3000, () => {
   console.log("server running")
 })
