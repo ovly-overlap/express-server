@@ -3,7 +3,7 @@ import { SignupRequestDTO } from '../dto/signupReq.dto.ts';
 import * as authService from '../services/auth.service.js';
 
 export const register = async (req :SignupRequestDTO, res) => {
-  const user = await authService.register(req.body)
+  const user = await authService.register(req)
   res.json(user)
 }
 
