@@ -5,7 +5,7 @@ interface UserAttributes {
   id: number;
   email: string;
   name: string;
-  pw: string;
+  password: string;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -18,7 +18,7 @@ class User extends Model<UserAttributes, UserCreationAttributes>{
   public id!: number;
   public email!: string;
   public name!: string;
-  public pw!: string;
+  public password!: string;
 }
 
 export default User;
