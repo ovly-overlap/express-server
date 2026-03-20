@@ -1,9 +1,10 @@
 // services/auth.service.ts
-import * as userRepository from '../repository/user.repository.js';
+import * as userRepository from '../repository/user.repository.ts';
 import bcrypt from 'bcrypt';
-import { generateToken } from '../util/jwt.js';
+import { generateToken } from '../util/jwt.ts';
 
-export const register = async (data) => {
+// TODO : DTO 추후 필요
+export const register = async (data: { email: string; password: any; }) => {
   const existing = await userRepository.findByEmail(data.email)
 
   if (existing) {

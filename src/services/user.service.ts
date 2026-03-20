@@ -1,4 +1,4 @@
-import userRepository from "../repository/user.repository.js";
+import userRepository from "../repository/user.repository.ts";
 
 export const createUser = async (data: string) => {
   const existing = await userRepository.findByEmail(data.email)

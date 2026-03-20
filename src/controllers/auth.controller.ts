@@ -6,7 +6,7 @@ export const register = async (req, res) => {
   res.json(user)
 }
 
-export const login = async (req, res) => {
+export const login = async (req: { body: any; }, res: { json: (arg0: any) => void; }) => {
   const token = await authService.login(req.body)
   res.json(token)
 }
