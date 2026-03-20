@@ -6,29 +6,24 @@ import { generateToken } from '../util/jwt.ts';
 // TODO : DTO 추후 필요
 export const register = async (data: { email: string; password: any; }) => {
   const existing = await userRepository.findByEmail(data.email)
-
   if (existing) {
     throw new Error('이미 존재하는 유저');
   }
-
   const hashedPassword = await bcrypt.hash(data.password, 10)
 
   return await userRepository.createUser({
     ...data,
     password: hashedPassword,
-  })
+  });
 }
 
 export const login = async ({ email, password }) => {
-  const user = await userRepository.findByEmail(email)
+  const user = await userRepository.findByEmail(email);
+  if (!user) throw new Error('유저 없음');
 
-  if (!user) throw new Error('유저 없음')
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) throw new Error('비밀번호 틀림');
 
-  const isMatch = await bcrypt.compare(password, user.password)
-
-  if (!isMatch) throw new Error('비밀번호 틀림')
-
-  const token = generateToken({ id: user.id })
-
-  return { token }
+  const token = generateToken({ id: user.id });
+  return { token };
 }
