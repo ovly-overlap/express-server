@@ -8,7 +8,7 @@ interface UserAttributes {
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
-  // 만들때 id없어도됌
+  // 만들때 id없어되길 바라며 씀
 
 @Table
 class User extends Model<UserAttributes, UserCreationAttributes>{
@@ -16,3 +16,5 @@ class User extends Model<UserAttributes, UserCreationAttributes>{
   public name!: string;
   public pw!: string;
 }
+
+export default User;

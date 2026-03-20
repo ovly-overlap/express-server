@@ -46,3 +46,5 @@ class News extends Model<NewsAttributes>{ //  implements  NewsAttributes
     @DeletedAt
     deleted_at!: Date;
 }
+
+export default News;

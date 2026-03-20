@@ -1,7 +1,4 @@
-// repositories/user.repository.ts
-// import { User } from '../models/user.model.js';
-import * as User from "../models/user.js";
-// 시퀄라이즈 모델에 접근
+import User from "../models/user.js";
 
 export const findAllUsers = async () => {
   return await User.findAll()
@@ -14,4 +11,3 @@ export const findUserById = async (id: number) => {
 export const findByEmail = (email: string) => {
   return User.findOne({ where: { email } })
 }
-
