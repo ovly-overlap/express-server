@@ -5,6 +5,7 @@
     "moduleResolution": "NodeNext",
     "rootDir": "src",
     "outDir": "dist",
+    "typeRoots": ["./node_modules/@types", "./src/types"],
     "strict": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
