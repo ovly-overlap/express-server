@@ -12,7 +12,7 @@ export const register = async (req :SignupRequestDTO, res) => {
 
 export const login = async (req: LoginReqDTO, res: LoginResDTO) => {
   try{
-    const token = await authService.login({email:req.email, password:req.password});
+    const token = await authService.login(req);
     return res.json(token);
   } catch(error) {
     return res.json("")
