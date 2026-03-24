@@ -2,10 +2,10 @@
 // import * as userRepository from '../repository/user.repository.ts';
 import * as authRepository from "../repository/auth.repository.js";
 import { SignupRequestDTO } from '../dto/signupReq.dto.js';
+import { LoginReqDTO } from "../dto/login.dto.ts";
 
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
-import { LoginReqDTO } from "../dto/loginReq.dto.ts";
 
 
 // TODO : (data: SignupRequestDTO) 으로 변경 후 테스트

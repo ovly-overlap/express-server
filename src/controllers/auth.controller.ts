@@ -1,5 +1,5 @@
 // controllers/auth.controller.ts
-import { LoginReqDTO } from '../dto/loginReq.dto.ts';
+import { LoginReqDTO } from '../dto/login.dto.ts';
 import { LoginResDTO } from '../dto/loginRes.dto.ts';
 import { SignupRequestDTO } from '../dto/signupReq.dto.ts';
 import * as authService from '../services/auth.service.js';

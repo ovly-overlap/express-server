@@ -1,3 +1,4 @@
+import { Request } from "express";
 
 export class SignupRequestDTO{
     email: string;
@@ -13,4 +14,13 @@ export class SignupRequestDTO{
         // SignupRequestDTO.validation(dto);
         return dto;
     }
+}
+
+export interface SignupRequestDTO extends Request{
+    body: {
+        email: string;
+        password: string;
+        name: string;
+    };
+    
 }
