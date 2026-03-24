@@ -1,5 +1,6 @@
 import 'reflect-metadata';
-import {Table, Model, Column, DataType, Default, PrimaryKey, AutoIncrement, DeletedAt} from 'sequelize-typescript';
+import { Optional } from 'sequelize';
+import {Table, Model, Column, DataType, Default, PrimaryKey, AutoIncrement, DeletedAt, AllowNull} from 'sequelize-typescript';
 
 interface NewsAttributes{
     id: number;
@@ -12,36 +13,45 @@ interface NewsAttributes{
     deleted_at: Date;
 }
 
+// 생성할때 id랑 기본값 필드 선택사항으로 하기
 // interface NewsCreationAttributes extends Optional<NewsAttributes, 'id'>{}
+interface NewsCreationAttributes extends Optional<NewsAttributes, 'id' | 'click_count' | 'deleted_at'> {}
 
 @Table({
     tableName: 'news',
     timestamps: true,
+    paranoid: true,
 })
-class News extends Model<NewsAttributes>{ //  implements  NewsAttributes
+class News extends Model<NewsAttributes, NewsCreationAttributes>{ //  implements  NewsAttributes
     @Column({type:DataType.INTEGER})
     @PrimaryKey
     @AutoIncrement
     id!: number;
     
+    @AllowNull(false)
     @Column({type:DataType.STRING})
     article_title!: string;
     
+    @AllowNull(false)
     @Column({type:DataType.STRING})
     article_source!: string;
 
-    @Column({type:DataType.STRING})
+    @AllowNull(false)
+    @Column({type:DataType.TEXT})
     article_image_url!: string;
 
+    @AllowNull(false)
     @Column({type:DataType.TEXT})
     content!: string;
 
-    @Column({type:DataType.SMALLINT})
+    @AllowNull(false)
+    @Column({type:DataType.INTEGER})
     @Default(0)
     click_count!: number;
 
+    @AllowNull(false)
     @Column({type:DataType.DATE})
-    scrolled_at!: Date;
+    scraped_at!: Date;
 
     @DeletedAt
     deleted_at!: Date;

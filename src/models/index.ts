@@ -3,6 +3,7 @@ import { Sequelize } from 'sequelize-typescript';
 
 const db = {};
 
+// desktop/connection : Local_MySQL
 const sequelize = new Sequelize({
   database: 'some_db',
   dialect: 'sqlite',
