@@ -1,5 +1,7 @@
 import { Optional } from 'sequelize';
-import { Table, Model, AutoIncrement, PrimaryKey } from 'sequelize-typescript';
+import { Table, Model, AutoIncrement, PrimaryKey, Column, Unique, AllowNull, DataType, BelongsToMany, HasMany } from 'sequelize-typescript';
+import UserFollows from "./user_follows.ts";
+import Posts from "./posts.ts";
 
 interface UserAttributes {
   id: number;
@@ -22,12 +24,31 @@ class Users extends Model<UserAttributes, UserCreationAttributes>{
   }
   @AutoIncrement
   @PrimaryKey
-  public id!: number;
-  public email!: string;
-  public name!: string;
-  public password!: string; // 처리 필요
+  id!: number;
+
+  @Column
+  password!: string; // 처리 필요
+
+  @Unique
+  @AllowNull(false)
+  @Column(DataType.STRING(50))
+  name!: string;
+
+
+  @Column(DataType.STRING(70))
+  intro!: string;  
 
   readonly created_at!:Date;
+
+
+  @BelongsToMany(() => Users, () => UserFollows, 'follower_id', 'following_id')
+  followings!: Users[];
+
+  @BelongsToMany(() => Users, () => UserFollows, 'following_id', 'follower_id')
+  followers!: Users[];
+
+  @HasMany(()=> Posts)
+  posts!: Posts[];
 }
 
 export default Users;

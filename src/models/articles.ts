@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { Optional } from 'sequelize';
 import {Table, Model, Column, DataType, Default, PrimaryKey, AutoIncrement, DeletedAt, AllowNull} from 'sequelize-typescript';
 
-interface NewsAttributes{
+interface ArticleAttributes{
     id: number;
     article_title: string;
     article_source: string;
@@ -14,17 +14,16 @@ interface NewsAttributes{
 }
 
 // 생성할때 id랑 기본값 필드 선택사항으로 하기
-// interface NewsCreationAttributes extends Optional<NewsAttributes, 'id'>{}
-interface NewsCreationAttributes extends Optional<NewsAttributes, 'id' | 'click_count' | 'deleted_at'> {}
+// interface ArticleCreationAttributes extends Optional<ArticleAttributes, 'id'>{}
+interface ArticleCreationAttributes extends Optional<ArticleAttributes, 'id' | 'click_count' | 'deleted_at'> {}
 
-@Table({
-    tableName: 'news',
+@Table({ // 하드삭제 paranoid no
+    tableName: 'articles',
     timestamps: true,
-    paranoid: true,
     deletedAt: "deleted_at",
     createdAt: "created_at"
 })
-class News extends Model<NewsAttributes, NewsCreationAttributes>{ //  implements  NewsAttributes
+class Articles extends Model<ArticleAttributes, ArticleCreationAttributes>{ //  implements  ArticleAttributes
     @Column({type:DataType.INTEGER})
     @PrimaryKey
     @AutoIncrement
@@ -49,7 +48,7 @@ class News extends Model<NewsAttributes, NewsCreationAttributes>{ //  implements
     @AllowNull(false)
     @Column({type:DataType.INTEGER})
     @Default(0)
-    click_count!: number;
+    views!: number;
 
     @AllowNull(false)
     @Column({type:DataType.DATE})
@@ -59,4 +58,4 @@ class News extends Model<NewsAttributes, NewsCreationAttributes>{ //  implements
     readonly deleted_at: Date;
 }
 
-export default News;
+export default Articles;

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Optional } from 'sequelize';
-import { Model, Table, Column, AutoIncrement, PrimaryKey, DataType, ForeignKey, Default, CreatedAt, DeletedAt, AllowNull } from "sequelize-typescript";
+import { Model, Table, Column, AutoIncrement, PrimaryKey, DataType, ForeignKey, Default, CreatedAt, DeletedAt, AllowNull, BelongsTo } from "sequelize-typescript";
 import Users from './users.ts';
 
 interface PostAttributes{
@@ -31,6 +31,7 @@ class Posts extends Model<PostAttributes, PostCreationAttributes>{
 
     @AllowNull(false)
     @ForeignKey(()=> Users) // 유저 속성이 id가 들어오는게 맞는지 확인
+    @BelongsTo(() => Users)
     @Column({type:DataType.INTEGER})
     user_id!: number;
 
@@ -45,7 +46,7 @@ class Posts extends Model<PostAttributes, PostCreationAttributes>{
     @Default(0)
     @Column
     comments_count!: number;
-
+    
     readonly created_at!:Date;
     readonly updated_at!:Date;
     readonly deleted_at!:Date;
