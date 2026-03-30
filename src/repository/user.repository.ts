@@ -8,6 +8,10 @@ export const findUserById = async (id: number) => {
   return await User.findByPk(id)
 }
 
-export const findByEmail = (email: string) => {
-  return User.findOne({ where: { email } });
+// export const findByEmail = (email: string) => {
+//   return User.findOne({ where: { email } });
+// }
+
+export const findOne = async () =>{
+  return await User.findOne()  
 }
