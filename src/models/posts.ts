@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Optional } from 'sequelize';
-import { Model, Table, Column, AutoIncrement, PrimaryKey, DataType, ForeignKey, Default, CreatedAt, DeletedAt, AllowNull, BelongsTo, BelongsToMany } from "sequelize-typescript";
+import { Model, Table, Column, AutoIncrement, PrimaryKey, DataType, ForeignKey, Default, CreatedAt, DeletedAt, AllowNull, BelongsTo, BelongsToMany, HasMany } from "sequelize-typescript";
 import Users from './users.ts';
 import UserPostLikes from './user_post_likes.ts';
 
@@ -63,6 +63,9 @@ class Posts extends Model<PostAttributes, PostCreationAttributes>{
 
     @BelongsTo(() => Users, "user_id")
     user!: Users;
+
+    @HasMany(()=> Posts, "post_id")
+    posts!: Posts[];
 }
 
 export default Posts;
