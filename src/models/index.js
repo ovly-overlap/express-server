@@ -1,13 +1,12 @@
 'use strict';
 
-// TODO: check sequelize <-> sequelize-ts conplict
-
 import { readdirSync } from 'fs';
 import { basename as _basename, join } from 'path';
 import Sequelize, { DataTypes } from 'sequelize';
 import { env as _env } from 'process';
 import path from "node:path";
 import { fileURLToPath } from 'node:url';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

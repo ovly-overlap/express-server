@@ -23,11 +23,13 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
   timestamps: true,
 })
 class Users extends Model<UserAttributes, UserCreationAttributes>{
-  static findByToken(token: any, arg1: (err: any, user: any) => any) {
+  static findByToken(token: string, arg1: (err: Error, user: Users) => any) {
     throw new Error("Method not implemented.");
   }
+
   @AutoIncrement
   @PrimaryKey
+  @Column
   id!: number;
 
   @Column
@@ -57,11 +59,15 @@ class Users extends Model<UserAttributes, UserCreationAttributes>{
   @HasMany(()=> Posts, "user_id")
   posts!: Posts[];
 
-  @HasMany(()=> UserPostLikes, "user_id") 
-  userPostLikes!: UserPostLikes[];
+  // @HasMany(()=> UserPostLikes, "user_id") 
+  // userPostLikes!: UserPostLikes[];
 
   @HasMany(()=> UserFandoms, "user_id")
   userFandoms!: UserFandoms[];
+
+  @BelongsToMany(()=>Posts, ()=>UserPostLikes)
+  likedPosts!: Posts[];
 }
+
 
 export default Users;

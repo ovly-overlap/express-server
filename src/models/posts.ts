@@ -1,7 +1,8 @@
 import 'reflect-metadata';
 import { Optional } from 'sequelize';
-import { Model, Table, Column, AutoIncrement, PrimaryKey, DataType, ForeignKey, Default, CreatedAt, DeletedAt, AllowNull, BelongsTo } from "sequelize-typescript";
+import { Model, Table, Column, AutoIncrement, PrimaryKey, DataType, ForeignKey, Default, CreatedAt, DeletedAt, AllowNull, BelongsTo, BelongsToMany } from "sequelize-typescript";
 import Users from './users.ts';
+import UserPostLikes from './user_post_likes.ts';
 
 interface PostAttributes{
     id: number;
@@ -50,6 +51,9 @@ class Posts extends Model<PostAttributes, PostCreationAttributes>{
     readonly created_at!:Date;
     readonly updated_at!:Date;
     readonly deleted_at!:Date;
+
+    @BelongsToMany(()=>Users, ()=>UserPostLikes)
+    likedPosts!: Users[];
 }
 
 export default Posts;
