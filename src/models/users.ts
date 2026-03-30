@@ -59,9 +59,6 @@ class Users extends Model<UserAttributes, UserCreationAttributes>{
   @HasMany(()=> Posts, "user_id")
   posts!: Posts[];
 
-  // @HasMany(()=> UserPostLikes, "user_id") 
-  // userPostLikes!: UserPostLikes[];
-
   @HasMany(()=> UserFandoms, "user_id")
   userFandoms!: UserFandoms[];
 

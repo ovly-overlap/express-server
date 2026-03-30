@@ -6,10 +6,9 @@ import UserPostLikes from './user_post_likes.ts';
 
 interface PostAttributes{
     id: number;
+    user_id: number;
     title: string;
-    writer: string; // 이거 만든 유저의 id를 적어야하나
     content: string;
-
 }
 
 interface PostCreationAttributes extends Optional<PostAttributes, 'id'>{}
@@ -32,18 +31,21 @@ class Posts extends Model<PostAttributes, PostCreationAttributes>{
 
     @AllowNull(false)
     @ForeignKey(()=> Users) // 유저 속성이 id가 들어오는게 맞는지 확인
-    @BelongsTo(() => Users)
     @Column({type:DataType.INTEGER})
     user_id!: number;
 
     @AllowNull(false)
-    @Column
+    @Column(DataType.STRING(50))
+    title!: string;
+    
+    @AllowNull(false)
+    @Column(DataType.TEXT)
     content!: string;
-
+    
     @Default(0)
     @Column
     post_likes_count!: number;
-
+    
     @Default(0)
     @Column
     comments_count!: number;
@@ -51,9 +53,14 @@ class Posts extends Model<PostAttributes, PostCreationAttributes>{
     readonly created_at!:Date;
     readonly updated_at!:Date;
     readonly deleted_at!:Date;
+    
+
 
     @BelongsToMany(()=>Users, ()=>UserPostLikes)
-    likedPosts!: Users[];
+    likedUsers!: Users[];
+
+    @BelongsTo(() => Users, "user_id")
+    user!: Users;
 }
 
 export default Posts;

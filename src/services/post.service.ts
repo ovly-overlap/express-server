@@ -39,7 +39,12 @@ export const getPostAll = async (cursor?: number, limit: number = 10) => {
 
 export const updatePost = async (dto : UpdatePostDto) => {
     const {postId, userId, ...updateData} = dto;
-
+    const [isUpdated] = await Posts.update(updateData, {
+        where: {
+            id:postId, 
+            user_id:userId
+        }
+    });
 }
 
 export const deletePost = async (postId: number, userId: number) => {
