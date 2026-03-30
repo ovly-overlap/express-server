@@ -1,12 +1,16 @@
 import * as postService from "../services/post.service.ts";
 import {Request, Response} from "express";
 
-// TODO : 데이터 유효성 확인
+// TODO : 데이터 유효성 확인 & 데이터 안정성 확인
 
 export const createPost = async (req: Request, res: Response) => {
     // TODO : 정규식 이용해서 게시글 카테고리 분류
-    
-    res.json()
+    try{
+        const isCreatedPost = postService.createPost(req.user.id);
+        res.json(isCreatedPost);
+    } catch (e){
+        res.json(e);
+    }
 }
 
 export const getPostOne = async (req: Request, res: Response) => {
@@ -26,9 +30,16 @@ export const getPostAll = async (req: Request, res: Response) => {
     res.json(posts);
 }
 
-// 
-export const updatePost = () => {
+// TODO : try-catch해서 안정성
+export const updatePost = async (req:Request, res:Response) => {
+    const userId = req.user.id;
+    const postId = Number(req.params.postId);
+    const {title, content} = req.body;
 
+    const updatedPost = await postService.updatePost({
+        postId, userId, title, content
+    });
+    res.json(updatedPost);
 }
 
 export const deletePost = async (req: Request, res: Response) => {
