@@ -60,6 +60,7 @@ export const getPostOne = async (postId: number, userId: number) =>{
 }
 
 export const getPostAll = async (cursor?: number, limit: number = 10) => {
+    // TODO : 최다 노출 알고리즘 > 댓글이랑 하트수로 노출 파라미터가 정해짐
     const where = cursor ? {id: {[Op.lt]: cursor}} : {};
     const posts = await Posts.findAll({
         where, order: [["id", "DESC"]], limit
