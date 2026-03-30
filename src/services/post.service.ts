@@ -27,6 +27,7 @@ export const likePost = async (postId: number, userId: number) =>{
 
 export const createPost = async (userId: number) =>{
     // TODO : 유저 게시글의 카테고리 정규화해서 테이블에 넣기
+    // TODO : 게시글 제목, 내용, 사진 검토
     if(await Users.findByPk(userId)){throw new Error("not exist user")};
     return await Posts.findOrCreate({where: {id:userId}});
 }

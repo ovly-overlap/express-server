@@ -5,7 +5,8 @@ import {Request, Response} from "express";
 // TODO : 예전에 누른 하트 포스트 뜨게 하기
 
 export const likePost = async (req: Request, res:Response) =>{
-
+    const isUserLiked = postService.likePost(Number(req.params.postId), req.user.id);
+    res.json(isUserLiked);
 }
 
 export const createPost = async (req: Request, res: Response) => {
@@ -58,3 +59,8 @@ export const deletePost = async (req: Request, res: Response) => {
         res.json(e);
     }
 }
+
+// TODO : 유저의 블락 테이블을 만들어야하나.. 
+// export const blockPost = async (req: Response, res: Response) => {
+
+// }
