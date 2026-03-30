@@ -9,6 +9,8 @@ interface PostAttributes{
     user_id: number;
     title: string;
     content: string;
+    post_likes_count: number;
+    comments_count: number;
 }
 
 interface PostCreationAttributes extends Optional<PostAttributes, 'id'>{}

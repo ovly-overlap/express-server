@@ -2,9 +2,10 @@ import * as postService from "../services/post.service.ts";
 import {Request, Response} from "express";
 
 // TODO : 데이터 유효성 확인 & 데이터 안정성 확인
+// TODO : 예전에 누른 하트 포스트 뜨게 하기
 
-export const createLikes = async (req: Request, res:Response) =>{
-        
+export const likePost = async (req: Request, res:Response) =>{
+
 }
 
 export const createPost = async (req: Request, res: Response) => {
@@ -25,7 +26,8 @@ export const getPostOne = async (req: Request, res: Response) => {
     res.json(post);
 }
 
-// TODO : 커서 단위로 무한 스크롤 제공
+// TODO : 클라이언트 간 > 커서 단위로 무한 스크롤 확인
+// TODO : 가져올때 사용자가 좋아요 눌렀는지 확인 하기
 export const getPostAll = async (req: Request, res: Response) => {
     const cursor = req.params.cursor ? Number(req.params.cursor) : undefined;
     const limit = req.params.limit ? Number(req.params.limit) : 10;
@@ -56,11 +58,3 @@ export const deletePost = async (req: Request, res: Response) => {
         res.json(e);
     }
 }
-
-// export const getLikedPosts = async (req, res) => {
-//   const userId = req.user.id;
-
-//   const result = await postService.getLikedPosts(userId);
-
-//   res.json(result);
-// };
