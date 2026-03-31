@@ -52,10 +52,3 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-// db.Article = require('./article.js')(sequelize,Sequelize);
-// 오류 가능성
-
-export default db;

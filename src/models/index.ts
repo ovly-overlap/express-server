@@ -1,13 +1,21 @@
 import { Sequelize } from 'sequelize-typescript';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+    
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// for test
 const sequelize = new Sequelize({
-  database: 'some_db',
-  dialect: 'sqlite',
+  database: 'ovly_db',
+  dialect: 'mysql',
   username: 'root',
-  password: '',
+  password: 'root',
   storage: ':memory:',
-  models: [__dirname + '/models'], // or [Player, Team],
+  models: [__dirname + '/models'], 
 });
 
 // sequelize.addModels([Person]);
 // sequelize.addModels(['path/to/models']);
+sequelize.addModels([__dirname+"/**/*.ts"]);
+
+export default sequelize;

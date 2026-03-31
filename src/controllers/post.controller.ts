@@ -14,7 +14,7 @@ export const getLikedUsersAll = async (req: Request, res: Response) =>{
     const cursor = req.params.cursor ? Number(req.params.cursor) : undefined;
     const limit = req.params.limit ? Number(req.params.limit) : 10;
     const postId = Number(req.params.postId);
-    const likedUsersinPost = await postService.getLikedUserAll(postId, cursor, limit);
+    const likedUsersinPost = await postService.getPostLikedUserAll(postId, cursor, limit);
     res.json(likedUsersinPost);
 }
 

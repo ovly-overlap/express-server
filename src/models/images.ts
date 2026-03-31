@@ -37,6 +37,7 @@ class Images extends Model{
 
 
     readonly created_at!:Date;
+    readonly deleted_at!:Date;
 
     // @BelongsTo(()=>)
 }

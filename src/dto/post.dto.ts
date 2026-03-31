@@ -42,6 +42,7 @@ export class PostResponseDTO {
     content!: string;
     likeCount!: number;
     commentCount!: number;
+    imageCount?: number;
 
     static from(post: Posts) : PostResponseDTO{
         return {
@@ -49,7 +50,8 @@ export class PostResponseDTO {
             title: post.title,
             content: post.content,
             likeCount: post.post_likes_count,
-            commentCount: post.comments_count
+            commentCount: post.comments_count,
+            imageCount: post.image_count // 문제 발생 가능성
         }
     }
     static fromList(posts: Posts[]): PostResponseDTO[] {
