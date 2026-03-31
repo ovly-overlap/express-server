@@ -4,13 +4,22 @@ import {Request, Response} from "express";
 // TODO : 데이터 유효성 확인 & 데이터 안정성 확인
 // TODO : 예전에 누른 하트 포스트 뜨게 하기
 
-export const likePost = async (req: Request, res:Response) =>{
-    const isUserLiked = postService.likePost(Number(req.params.postId), req.user.id);
+export const toggleLikePost = async (req: Request, res:Response) =>{
+    const isUserLiked = postService.toggleLikePost(Number(req.params.postId), req.user.id);
     res.json(isUserLiked);
+}
+
+export const getLikedUsersAll = async (req: Request, res: Response) =>{
+    const cursor = req.params.cursor ? Number(req.params.cursor) : undefined;
+    const limit = req.params.limit ? Number(req.params.limit) : 10;
+    const postId = Number(req.params.postId);
+    const likedUsersinPost = await postService.getLikedUserAll(postId, cursor, limit);
+    res.json(likedUsersinPost);
 }
 
 export const createPost = async (req: Request, res: Response) => {
     // TODO : 정규식 이용해서 게시글 카테고리 분류
+    // TODO : 사진 관련 처리
     try{
         const isCreatedPost = postService.createPost(req.user.id);
         res.json(isCreatedPost);

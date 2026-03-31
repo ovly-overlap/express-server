@@ -11,8 +11,8 @@ interface UpdatePostDto {
   content: string;
 }
 
-export const likePost = async (postId: number, userId: number) =>{
-    // 기존에 내가 눌렀는지 확인
+export const toggleLikePost = async (postId: number, userId: number) =>{
+    // TODO : 트랜잭션 작동 확인
     const isUserLiked = await UserPostLikes.findOne({where:{post_id:postId, user_id:userId}})
     if(isUserLiked){
         await isUserLiked.destroy();
@@ -23,6 +23,31 @@ export const likePost = async (postId: number, userId: number) =>{
     await UserPostLikes.create({where: {post_id:postId, user_id:userId}});
     await Posts.increment("post_likes_count", {where:{id:postId}});
     return {liked: true}; 
+}
+
+export const getLikedUserAll = async (postId:number, cursor?: number, limit: number = 10) => {
+    //  order : created
+    // const resultOfLikedUsers = await UserPostLikes.findAll({
+    //     where: {
+    //         id:{[Op.lt]: cursor},
+    //         post_id: postId,
+    //     },
+    //     limit: limit,
+    // }).map(user_id);
+    // return resultOfLikedUsers;
+    const likedUsers = await Users.findAll({
+        attributes: ['id', 'name'],
+        include: [{
+            model: Posts,
+            as: 'likedPosts',
+            attributes: [],
+            where: {id: postId},
+            through: {attributes: []}
+        }],
+        limit,
+        order: [["id", "DESC"]]
+    });
+    return likedUsers;
 }
 
 export const createPost = async (userId: number) =>{
@@ -93,4 +118,6 @@ export const deletePost = async (postId: number, userId: number) => {
 
     return true;
 }
+
+
     
