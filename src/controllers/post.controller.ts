@@ -29,10 +29,10 @@ export const createPost = async (req: Request, res: Response) => {
 }
 
 export const getPostOne = async (req: Request, res: Response) => {
-    const userId = req.user.id;
+    // const userId = req.user.id;
     const postId = Number(req.params.postId);
 
-    const post = await postService.getPostOne(userId, postId);
+    const post = await postService.getPostOne(postId);
     res.json(PostResponseDTO.from(post));
 }
 

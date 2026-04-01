@@ -1,4 +1,5 @@
 import Posts from "../models/posts.ts";
+import {ImagesPostResponseDTO} from "./image.dto.ts";
 
 export class CreatePostDTO{
     title!:string;
@@ -43,18 +44,20 @@ export class PostResponseDTO {
     likeCount!: number;
     commentCount!: number;
     imageCount?: number;
+    imageUrls?: ImagesPostResponseDTO;
 
-    static from(post: Posts) : PostResponseDTO{
+    static from(post: Posts, imageUrls: ImagesPostResponseDTO) : PostResponseDTO{
         return {
             id: post.id,
             title: post.title,
             content: post.content,
             likeCount: post.post_likes_count,
             commentCount: post.comments_count,
-            imageCount: post.image_count // 문제 발생 가능성
+            // imageCount: imageUrls.length,  // 이거 작동 안함
+            imageUrls: imageUrls[0]
         }
     }
-    static fromList(posts: Posts[]): PostResponseDTO[] {
-        return posts.map(post => this.from(post));  
+    static fromList(posts: Posts[], imageUrls: ImagesPostResponseDTO[]): PostResponseDTO[] {
+        return posts.map((post, i) => this.from(post, imageUrls[i]));   // 이거 될까될까될까?될까?될까?
     }
 }
